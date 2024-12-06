@@ -97,7 +97,7 @@ services:
         ports:
             - "80:80"
         volumes:
-            - ./wordpress_custom:/var/www/html
+            - ./wordpress:/var/www/html
         networks:
             - net_operator_wordpress
 
