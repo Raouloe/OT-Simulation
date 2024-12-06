@@ -11,7 +11,8 @@ RUN apt-get update && \
     make install && \
     cd .. && \
     rm -rf bash-3.1 bash-3.1.tar.gz
-    a2enmod cgi
+    
+RUN a2enmod cgi
 
 COPY vulnerable.sh /usr/lib/cgi-bin/vulnerable.sh
 
