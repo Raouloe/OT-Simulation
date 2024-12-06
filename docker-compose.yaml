@@ -89,22 +89,17 @@ services:
         networks:
             - net_operator_scadalts
 
-    suricata:
-        container_name: suricata
-        image: jasonish/suricata:latest
-        cap_add:
-            - SYS_NICE
-            - NET_ADMIN
-            - NET_RAW
-        networks:
-            - net_openplc_epanet
-            - net_scadalts_openplc
-            - net_operator_scadalts
+    wordpress:
+        container_name: wordpress
+        build:
+          context: ./shellshock/. 
+          dockerfile: Dockerfile
+        ports:
+            - "80:80"
         volumes:
-            - ./suricata/var/log/suricata:/var/log/suricata  # The Suricata log directory.
-            - ./suricata/var/lib/suricata:/var/lib/suricata  # Rules, Suricata-Update cache and other runtime data that may be useful to retain between runs.
-            - ./suricata/etc/suricata:/etc/suricata          # The configuration directory
-        command: -i eth0 -i eth1 -i eth2
+            - ./wordpress_custom:/var/www/html
+        networks:
+            - net_operator_wordpress
 
 networks:
     net_database_scadalts:
@@ -115,3 +110,6 @@ networks:
         driver: bridge
     net_operator_scadalts:
         driver: bridge
+    net_operator_wordpress:
+        driver: bridge
+
